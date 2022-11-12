@@ -1,0 +1,39 @@
+﻿@page "/Products"
+
+@using BlazorWebAssembly.Data
+@using BlazorWebAssembly.Components
+
+@inject ICatalog Catalog
+@inject IToastService ToastService
+@inject ICart Cart
+
+<h3>Список товаров</h3>
+
+
+@foreach (var product in Catalog.GetProducts())
+{
+    <ProductItem Product="product" />
+    <button class="btn btn-primary" @onclick="@(() => AddProductInCart(product))">Купить</button>
+}
+
+@code
+{
+    private int _amountInCart = 1;
+    
+    private void AddProductInCart(Product product)
+    {
+        if (product.Amount > 0)
+        {
+            var productInCart = new Product(product.Id, product.Name, product.Price, _amountInCart, product.ImageSource,product.Description);
+            Cart.AddProductInCart(productInCart);
+            ToastService.ShowSuccess($"{product.Name} добавлен в корзину","Добавлено");
+            product.Amount--;
+        }
+        else
+        {
+            ToastService.ShowError($"{product.Name} нет в наличии");
+        }
+    }
+}
+
+

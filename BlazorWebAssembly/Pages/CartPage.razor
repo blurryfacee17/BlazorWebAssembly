@@ -1,0 +1,39 @@
+﻿@page "/Cart"
+
+@using BlazorWebAssembly.Data
+@using BlazorWebAssembly.Components
+
+@inject ICart Cart
+@* @implements IDisposable *@
+
+<h3>Корзина</h3>
+
+@foreach (var product in Cart.GetProductsFromCart())
+{
+    <ProductItem Product="product"></ProductItem>
+}
+
+@code {
+    
+    // private bool _disposed = false;
+    //
+    // protected override void OnInitialized()
+    // {
+    //     _ = UpdateCart();
+    // }
+    
+    // private async Task UpdateCart()
+    // {
+    //     while (!_disposed)
+    //     {
+    //         await Task.Delay(TimeSpan.FromSeconds(1));
+    //         await InvokeAsync(StateHasChanged);
+    //     }
+    // }
+    //
+    // public void Dispose()
+    // {
+    //     _disposed = true;
+    // }
+
+}

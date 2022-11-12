@@ -1,0 +1,19 @@
+﻿
+@using BlazorWebAssembly.Data
+
+@inject NavigationManager NavigationManager
+
+
+<div @onclick="@(() => NavigationManager.NavigateTo($"/ProductInfo/{Product.Id}"))">
+    <img alt="" src="@Product.ImageSource"/>
+    <ul>
+        <li>@Product.Name</li>
+        <li>Цена: @Product.Price</li>
+        <li>Количество: @Product.Amount</li>
+    </ul>
+</div>
+
+@code {
+    [Parameter]
+    public Product Product { get; set; }
+}

@@ -1,0 +1,24 @@
+﻿@page "/ProductInfo/{ProductId:int}"
+
+@using BlazorWebAssembly.Data
+
+@inject ICatalog Catalog
+
+<h3>Информация о товаре</h3>
+
+<p>@_product.Description</p>
+
+@code {
+
+    [Parameter]
+    public int ProductId { get; set; }
+
+    private Product _product { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        _product = Catalog.GetProduct(ProductId);
+    }
+
+}
